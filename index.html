@@ -2,248 +2,1831 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sportkarriere Berlin - Deine Wege nach der Schule</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SportKarriere – Dein Weg in den Sport</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:    #1a3a5c;
+      --secondary:  #e8450a;
+      --accent:     #f5a623;
+      --light:      #f0f4f8;
+      --white:      #ffffff;
+      --dark:       #111827;
+      --gray:       #6b7280;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      --radius:     14px;
+      --transition: 0.28s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+
+    .nav-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background: var(--secondary);
+      color: var(--white);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===== PAGES ===== */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f2942 0%, #1a3a5c 50%, #e8450a 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('[images.unsplash.com](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1400&q=80)') center/cover no-repeat;
+      opacity: 0.18;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 1.5rem;
+      max-width: 780px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.12rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #c73908;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(232,69,10,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.6);
+      margin-left: 0.75rem;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--primary);
+      border-color: white;
+    }
+
+    /* ===== SECTION CONTAINERS ===== */
+    .section {
+      padding: 4rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-sub {
+      color: var(--gray);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .divider {
+      width: 56px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
+      margin: 0.6rem 0 1.2rem;
+    }
+
+    /* ===== CARDS ===== */
+    .card-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card-grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 1.25rem 1.4rem 1.5rem;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.2rem 0.7rem;
+      border-radius: 50px;
+      margin-bottom: 0.6rem;
+    }
+
+    .tag-red    { background: #fee2e2; color: #b91c1c; }
+    .tag-blue   { background: #dbeafe; color: #1d4ed8; }
+    .tag-green  { background: #d1fae5; color: #065f46; }
+    .tag-orange { background: #ffedd5; color: #c2410c; }
+    .tag-purple { background: #ede9fe; color: #6d28d9; }
+    .tag-yellow { background: #fef9c3; color: #92400e; }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.45rem;
+      line-height: 1.3;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.9rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--secondary);
+      text-decoration: none;
+      transition: gap var(--transition);
+    }
+
+    .card-link:hover { gap: 0.55rem; }
+
+    /* ===== STAT STRIP ===== */
+    .stat-strip {
+      background: var(--primary);
+      padding: 2.5rem 1.5rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .stat-item h2 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .stat-item p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.92rem;
+      margin-top: 0.25rem;
+    }
+
+    /* ===== PATH / TIMELINE ===== */
+    .path-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .path-steps::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--secondary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .path-step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.5rem 0;
+    }
+
+    .step-icon {
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 2;
+      border: 3px solid white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    .step-content {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      box-shadow: var(--card-shadow);
+      flex: 1;
+    }
+
+    .step-content h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .step-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--accent);
+      color: var(--dark);
+      padding: 0.15rem 0.6rem;
+      border-radius: 50px;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== SPORT DETAIL PAGE ===== */
+    .sport-hero {
+      position: relative;
+      height: 340px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .sport-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sport-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,20,40,0.9) 0%, transparent 60%);
+    }
+
+    .sport-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      color: white;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .sport-hero-content h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+    }
+
+    .sport-hero-content p {
+      opacity: 0.8;
+      margin-top: 0.3rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      margin-bottom: 0.8rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* ===== INFO BOX ===== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: var(--card-shadow);
+      border-left: 5px solid var(--secondary);
+    }
+
+    .info-box h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray);
+      margin-bottom: 0.3rem;
+      font-weight: 700;
+    }
+
+    .info-box p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ===== TABLE ===== */
+    .career-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .career-table thead {
+      background: var(--primary);
+      color: white;
+    }
+
+    .career-table th,
+    .career-table td {
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .career-table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .career-table tbody tr:hover {
+      background: #e8f0fe;
+    }
+
+    .career-table td:first-child {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ===== PRO PATH ===== */
+    .pro-banner {
+      background: linear-gradient(135deg, var(--primary), #0f2942);
+      color: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .pro-banner h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .pro-banner p {
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+
+    .trophy { font-size: 5rem; }
+
+    /* ===== ACCORDION ===== */
+    .accordion { margin-top: 1rem; }
+
+    .acc-item {
+      background: white;
+      border-radius: var(--radius);
+      margin-bottom: 0.75rem;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+    }
+
+    .acc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      transition: background var(--transition);
+    }
+
+    .acc-header:hover { background: var(--light); }
+
+    .acc-header.open { background: var(--primary); color: white; }
+
+    .acc-icon {
+      font-size: 1.2rem;
+      transition: transform var(--transition);
+    }
+
+    .acc-header.open .acc-icon { transform: rotate(45deg); }
+
+    .acc-body {
+      display: none;
+      padding: 1rem 1.4rem 1.2rem;
+      font-size: 0.92rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    .acc-body.open { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    footer strong { color: var(--accent); }
+
+    /* ===== CHIP TAGS ===== */
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 0.28rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--light);
+      color: var(--primary);
+      border: 1px solid #d1d5db;
+    }
+
+    /* ===== HIGHLIGHT ===== */
+    .highlight-strip {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: var(--radius);
+      padding: 2rem 2rem;
+      color: white;
+      margin: 2.5rem 0;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .highlight-strip .hs-icon { font-size: 3rem; flex-shrink: 0; }
+
+    .highlight-strip h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+
+    .highlight-strip p { opacity: 0.9; font-size: 0.92rem; line-height: 1.6; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--primary); padding: 1rem; gap: 0.3rem; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .pro-banner { grid-template-columns: 1fr; }
+      .trophy { display: none; }
+      .path-steps::before { left: 22px; }
+      .step-icon { width: 46px; height: 46px; font-size: 1.1rem; }
+    }
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <nav class="navbar">
-      <div class="logo">Sportkarriere Berlin</div>
-      <ul class="nav-links">
-        <li><a href="#wege">Wege</a></li>
-        <li><a href="#berufe">Berufe</a></li>
-        <li><a href="#profi">Profi-Sport</a></li>
-        <li><a href="#eigenschaften">Eigenschaften</a></li>
-        <li><a href="#berlin">Berlin</a></li>
-      </ul>
-    </nav>
 
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">⚡ <span>Sport</span>Karriere</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="showPage('home')"        id="nav-home">Start</a></li>
+    <li><a onclick="showPage('wege')"        id="nav-wege">Karrierewege</a></li>
+    <li><a onclick="showPage('sportarten')"  id="nav-sportarten">Sportarten</a></li>
+    <li><a onclick="showPage('profi')"       id="nav-profi">Profi werden</a></li>
+    <li><a onclick="showPage('berufe')"      id="nav-berufe">Berufe im Sport</a></li>
+    <li><a onclick="showPage('faq')"         id="nav-faq">FAQ</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+
+<!-- =============================================
+     PAGE: HOME
+     ============================================= -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
     <div class="hero-content">
-      <h1>Deine Zukunft im Sport</h1>
-      <p>
-        Entdecke deine Möglichkeiten nach der Schule: FSJ, Ausbildung, Studium,
-        Berufe im Sport und Wege in den Profi-Bereich - speziell für junge Menschen in Berlin.
-      </p>
-      <a href="#wege" class="btn">Jetzt entdecken</a>
+      <div class="hero-badge">🏆 Dein Weg in den Sport</div>
+      <h1>Deine <em>Karriere</em> im Sport beginnt jetzt</h1>
+      <p>Vom Schüler bis zum Profi – entdecke alle Möglichkeiten: FSJ, Ausbildung, Studium und mehr. Strukturiert, klar und praxisnah.</p>
+      <button class="btn btn-primary" onclick="showPage('wege')">Karrierewege entdecken</button>
+      <button class="btn btn-outline" onclick="showPage('sportarten')">Sportarten erkunden</button>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section class="intro section">
-      <div class="container">
-        <h2>Sport ist mehr als nur ein Hobby</h2>
-        <p>
-          Wenn du Sport liebst, kannst du daraus viel machen: Du kannst mit Kindern
-          und Jugendlichen arbeiten, Trainer oder Trainerin werden, Sport studieren,
-          ein Freiwilliges Soziales Jahr im Sport machen oder sogar den Weg in den
-          Leistungs- und Profisport gehen. In Berlin gibt es viele Vereine, Schulen,
-          Sportzentren und Ausbildungswege, die dir Türen öffnen können.
-        </p>
-      </div>
-    </section>
-
-    <section id="wege" class="section light">
-      <div class="container">
-        <h2>Deine Wege nach der Schule</h2>
-        <div class="card-grid">
-          <article class="card">
-            <h3>FSJ im Sport</h3>
-            <p>
-              Ein FSJ im Sport ist ideal, wenn du nach der Schule praktische Erfahrungen
-              sammeln willst. Du unterstützt oft Sportvereine, Schulen oder Jugendprojekte,
-              organisierst Angebote und hilfst beim Training.
-            </p>
-            <ul>
-              <li>Guter Einstieg in den Sportbereich</li>
-              <li>Praktische Erfahrungen mit Menschen und Teams</li>
-              <li>Hilft bei der Berufsorientierung</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Ausbildung</h3>
-            <p>
-              Im Sportbereich gibt es verschiedene Ausbildungsberufe. Beispiele sind
-              Sport- und Fitnesskaufmann/-frau, Physiotherapeut/in oder Kaufmann/-frau
-              im Gesundheitswesen.
-            </p>
-            <ul>
-              <li>Praxisnah lernen</li>
-              <li>Früh eigenes Geld verdienen</li>
-              <li>Direkter Einstieg ins Berufsleben</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Studium</h3>
-            <p>
-              Mit einem Studium kannst du tiefer in Themen wie Sportwissenschaft,
-              Lehramt Sport, Gesundheitsförderung, Training oder Management einsteigen.
-            </p>
-            <ul>
-              <li>Gute Chancen für spezialisierte Berufe</li>
-              <li>Verbindung von Theorie und Praxis</li>
-              <li>Interessant für Trainer, Lehrkräfte oder Management</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="berufe" class="section">
-      <div class="container">
-        <h2>Welche Berufe gibt es im Sport?</h2>
-        <div class="career-list">
-          <div class="career-item">
-            <h3>Trainer/in</h3>
-            <p>
-              Du planst Training, motivierst Menschen und hilfst ihnen, sportliche Ziele zu erreichen.
-            </p>
-          </div>
-          <div class="career-item">
-            <h3>Sportlehrer/in</h3>
-            <p>
-              Du vermittelst Bewegung, Teamgeist und Gesundheit in der Schule.
-            </p>
-          </div>
-          <div class="career-item">
-            <h3>Physiotherapeut/in</h3>
-            <p>
-              Du unterstützt Menschen nach Verletzungen und hilfst beim gesunden Bewegen.
-            </p>
-          </div>
-          <div class="career-item">
-            <h3>Sportmanager/in</h3>
-            <p>
-              Du organisierst Vereine, Events, Sponsoring und Abläufe im Sportbetrieb.
-            </p>
-          </div>
-          <div class="career-item">
-            <h3>Fitnessökonom/in</h3>
-            <p>
-              Du verbindest Training, Gesundheit und wirtschaftliches Wissen.
-            </p>
-          </div>
-          <div class="career-item">
-            <h3>Leistungssportler/in</h3>
-            <p>
-              Du trainierst auf hohem Niveau und baust dir mit Disziplin eine sportliche Laufbahn auf.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="profi" class="section dark">
-      <div class="container">
-        <h2>Was braucht man für den Profi-Sport?</h2>
-        <div class="two-columns">
-          <div>
-            <h3>Was man machen muss</h3>
-            <ul>
-              <li>Regelmäßig und gezielt trainieren</li>
-              <li>Auf Ernährung und Regeneration achten</li>
-              <li>Diszipliniert und zuverlässig sein</li>
-              <li>Mit Druck und Rückschlägen umgehen lernen</li>
-              <li>Früh an Wettkämpfen und Sichtungen teilnehmen</li>
-              <li>Trainerinnen, Trainer und Fördermöglichkeiten suchen</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Was man als Profi können sollte</h3>
-            <ul>
-              <li>Leistungsbereitschaft und Motivation</li>
-              <li>Mentale Stärke</li>
-              <li>Teamfähigkeit</li>
-              <li>Geduld und Ausdauer</li>
-              <li>Selbstorganisation</li>
-              <li>Verantwortung für den eigenen Körper</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="eigenschaften" class="section light">
-      <div class="container">
-        <h2>Wie sollte man sein, wenn man im Sport arbeiten will?</h2>
-        <div class="traits-grid">
-          <div class="trait-box">
-            <h3>Motiviert</h3>
-            <p>Wer im Sport arbeiten möchte, sollte Lust haben, sich weiterzuentwickeln.</p>
-          </div>
-          <div class="trait-box">
-            <h3>Zuverlässig</h3>
-            <p>Pünktlichkeit und Verantwortung sind im Training und im Beruf sehr wichtig.</p>
-          </div>
-          <div class="trait-box">
-            <h3>Teamfähig</h3>
-            <p>Im Sport arbeitest du fast immer mit anderen Menschen zusammen.</p>
-          </div>
-          <div class="trait-box">
-            <h3>Belastbar</h3>
-            <p>Sportliche und berufliche Herausforderungen gehören dazu.</p>
-          </div>
-          <div class="trait-box">
-            <h3>Hilfsbereit</h3>
-            <p>Viele Berufe im Sport haben mit Förderung, Unterstützung und Gesundheit zu tun.</p>
-          </div>
-          <div class="trait-box">
-            <h3>Diszipliniert</h3>
-            <p>Fortschritt entsteht durch regelmäßige Arbeit und klare Ziele.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2>Was sollte man im Leben für diese Bereiche tun?</h2>
-        <div class="steps">
-          <div class="step">
-            <span>1</span>
-            <p>Eigene Interessen im Sport entdecken und verschiedene Bereiche ausprobieren.</p>
-          </div>
-          <div class="step">
-            <span>2</span>
-            <p>Praktische Erfahrungen sammeln, zum Beispiel im Verein, in Schulprojekten oder im FSJ.</p>
-          </div>
-          <div class="step">
-            <span>3</span>
-            <p>Sich weiterbilden, Lizenzen machen und offen für neue Chancen bleiben.</p>
-          </div>
-          <div class="step">
-            <span>4</span>
-            <p>Kontakte knüpfen, Trainerinnen und Trainer ansprechen und Netzwerke nutzen.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="berlin" class="section accent">
-      <div class="container">
-        <h2>Sportkarriere in Berlin</h2>
-        <p>
-          Berlin bietet viele Möglichkeiten für junge Menschen im Sportbereich:
-          große und kleine Vereine, Leistungszentren, Fitnessstudios, Schulen,
-          Hochschulen und soziale Projekte. Gerade in einer sportlich vielfältigen
-          Stadt wie Berlin kannst du viele Wege ausprobieren und deinen eigenen
-          Platz finden.
-        </p>
-        <p>
-          Besonders sinnvoll ist es, früh Kontakte zu Vereinen, Trainerinnen und Trainern,
-          Schulen oder sozialen Einrichtungen aufzubauen. So bekommst du Einblicke in
-          verschiedene Bereiche und findest schneller heraus, welcher Weg zu dir passt.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 Sportkarriere Berlin - Website für junge Menschen mit Zukunft im Sport</p>
+  <!-- STATS -->
+  <div class="stat-strip">
+    <div class="stat-grid">
+      <div class="stat-item"><h2>12+</h2><p>Sportarten im Überblick</p></div>
+      <div class="stat-item"><h2>6</h2><p>Karrierewege erklärt</p></div>
+      <div class="stat-item"><h2>40+</h2><p>Berufsbilder im Sport</p></div>
+      <div class="stat-item"><h2>~90.000</h2><p>Sportstudenten in DE</p></div>
+      <div class="stat-item"><h2>850+</h2><p>Sportvereine in jedem Bundesland</p></div>
     </div>
+  </div>
+
+  <!-- OVERVIEW CARDS -->
+  <div class="section">
+    <div class="section-title">Was erwartet dich hier?</div>
+    <div class="divider"></div>
+    <p class="section-sub">Wähle einen Bereich und erfahre alles, was du für deinen Start in die Sportwelt wissen musst.</p>
+
+    <div class="card-grid card-grid-3">
+
+      <div class="card" onclick="showPage('wege')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80)" alt="Karrierewege">
+        <div class="card-body">
+          <span class="card-tag tag-blue">Orientierung</span>
+          <h3>Karrierewege nach der Schule</h3>
+          <p>FSJ, Ausbildung, Studium – alle Optionen auf einen Blick. Was passt zu dir?</p>
+          <a class="card-link">Jetzt erkunden →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showPage('sportarten')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80)" alt="Sportarten">
+        <div class="card-body">
+          <span class="card-tag tag-red">Sportarten</span>
+          <h3>Sportarten & ihre Karrierepfade</h3>
+          <p>Fußball, Basketball, Leichtathletik, E-Sport und viele mehr – jede Sportart, ein eigener Weg.</p>
+          <a class="card-link">Sportarten ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showPage('profi')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80)" alt="Profi">
+        <div class="card-body">
+          <span class="card-tag tag-orange">Profikarriere</span>
+          <h3>Profi werden – ist das realistisch?</h3>
+          <p>Was braucht es wirklich, um Profisportler zu werden? Chancen, Risiken und der Weg dorthin.</p>
+          <a class="card-link">Mehr erfahren →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showPage('berufe')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&q=80)" alt="Berufe">
+        <div class="card-body">
+          <span class="card-tag tag-green">Berufe</span>
+          <h3>Berufe rund um den Sport</h3>
+          <p>Trainer, Physiotherapeut, Sportjournalist, Manager – Sport geht weit über das Spielfeld hinaus.</p>
+          <a class="card-link">Alle Berufe →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showPage('faq')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=600&q=80)" alt="FAQ">
+        <div class="card-body">
+          <span class="card-tag tag-purple">Fragen & Antworten</span>
+          <h3>Häufige Fragen beantwortet</h3>
+          <p>Was verdiene ich? Brauche ich Abitur? Wie finanziere ich mein Studium? Alles geklärt.</p>
+          <a class="card-link">Zu den FAQs →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showPage('wege')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80)" alt="FSJ">
+        <div class="card-body">
+          <span class="card-tag tag-yellow">Freiwilliges Jahr</span>
+          <h3>FSJ im Sport – der perfekte Einstieg</h3>
+          <p>Ein Freiwilliges Soziales Jahr im Sport öffnet Türen – praktisch, sinnvoll und lehrreich.</p>
+          <a class="card-link">FSJ entdecken →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
   </footer>
+</div>
+
+
+<!-- =============================================
+     PAGE: KARRIEREWEGE
+     ============================================= -->
+<div class="page" id="page-wege">
+
+  <div class="hero" style="min-height:320px; background: linear-gradient(135deg,#0f2942,#1a6b3a);">
+    <div class="hero-content">
+      <div class="hero-badge">🎓 Nach der Schule</div>
+      <h1>Deine <em>Wege</em> in den Sport</h1>
+      <p>Von FSJ bis Masterstudium – finde den Weg, der zu dir passt.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Überblick: Alle Karrierewege</div>
+    <div class="divider"></div>
+    <p class="section-sub">Direkt nach dem Schulabschluss gibt es viele Möglichkeiten, im Sport Fuß zu fassen. Hier sind die wichtigsten Wege – sortiert von kurzfristig bis langfristig.</p>
+
+    <!-- TIMELINE -->
+    <div class="path-steps">
+
+      <div class="path-step">
+        <div class="step-icon" style="background:#fef9c3; color:#92400e;">🤝</div>
+        <div class="step-content">
+          <span class="step-label">Option 1</span>
+          <h3>FSJ im Sport (Freiwilliges Soziales Jahr)</h3>
+          <p>Das FSJ im Sport ist ein einjähriges Freiwilligenprogramm, bei dem du in Sportvereinen, Verbänden oder Sportschulen mitarbeitest. Du unterstützt Trainings, hilfst bei der Organisation von Events und sammelst wertvolle Praxiserfahrung. Das FSJ ist ideal, um zu testen, ob Sport wirklich dein Beruf werden soll – und du erhältst Taschengeld (ca. 350–500 €/Monat) sowie Unterkunft.</p>
+          <div class="chip-row">
+            <span class="chip">Dauer: 6–18 Monate</span>
+            <span class="chip">Ab 16 Jahren</span>
+            <span class="chip">Anbieter: DOSB, LSB</span>
+            <span class="chip">Taschengeld inklusive</span>
+            <span class="chip">Kein Abschluss nötig</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-step">
+        <div class="step-icon" style="background:#d1fae5; color:#065f46;">🔧</div>
+        <div class="step-content">
+          <span class="step-label">Option 2</span>
+          <h3>Berufsausbildung im Sport</h3>
+          <p>Es gibt zahlreiche anerkannte Ausbildungsberufe mit Sportbezug. Die beliebtesten sind <strong>Sport- und Fitnesskaufmann/-frau</strong>, <strong>Fachangestellte/r für Bäderbetriebe</strong> oder <strong>Sportfachmann/-frau</strong>. Diese dauern in der Regel 2–3 Jahre und bieten einen soliden Einstieg in die Sportbranche ohne langen Studienweg. Viele Betriebe übernehmen ihre Azubis danach direkt.</p>
+          <div class="chip-row">
+            <span class="chip">Dauer: 2–3 Jahre</span>
+            <span class="chip">Kein Abitur nötig</span>
+            <span class="chip">Azubigehalt ab ~600 €</span>
+            <span class="chip">IHK-Abschluss</span>
+            <span class="chip">Praxisorientiert</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-step">
+        <div class="step-icon" style="background:#dbeafe; color:#1d4ed8;">🎖️</div>
+        <div class="step-content">
+          <span class="step-label">Option 3</span>
+          <h3>Lizenzausbildung zum Trainer/Übungsleiter</h3>
+          <p>Über Sportverbände kannst du Trainer- und Übungsleiterlizenzen erwerben – von der C-Lizenz (Einstieg) bis zur A-Lizenz (Profibereich). Die C-Lizenz bekommst du bereits ab 16 Jahren in vielen Verbänden und kostet je nach Sport 200–800 €. Diese Lizenzen ermöglichen dir, eigenständig Gruppen zu trainieren und in Vereinen zu arbeiten.</p>
+          <div class="chip-row">
+            <span class="chip">C-Lizenz: ~60–80 Std.</span>
+            <span class="chip">B-Lizenz: ~120 Std.</span>
+            <span class="chip">A-Lizenz: ~400+ Std.</span>
+            <span class="chip">DFB, DSV, DHB, DOSB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-step">
+        <div class="step-icon" style="background:#ede9fe; color:#6d28d9;">📚</div>
+        <div class="step-content">
+          <span class="step-label">Option 4</span>
+          <h3>Duales Studium Sport</h3>
+          <p>Das duale Studium verbindet akademisches Lernen mit praktischer Arbeitserfahrung. Du studierst z.B. Sportmanagement, Sportwissenschaft oder Fitnessökonomie und arbeitest gleichzeitig in einem Unternehmen. Viele Clubs, Fitnessstudios und Sportverbände suchen gezielt dual Studierende. Kein Studiengebühren-Problem, weil der Betrieb zahlt – und du verdienst dabei.</p>
+          <div class="chip-row">
+            <span class="chip">Dauer: 3 Jahre</span>
+            <span class="chip">Abitur oder Fachabi</span>
+            <span class="chip">Gehalt ca. 700–1.000 €</span>
+            <span class="chip">Bachelor-Abschluss</span>
+            <span class="chip">Theorie + Praxis</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-step">
+        <div class="step-icon" style="background:#fee2e2; color:#b91c1c;">🎓</div>
+        <div class="step-content">
+          <span class="step-label">Option 5</span>
+          <h3>Sportwissenschaftsstudium (Bachelor)</h3>
+          <p>Ein klassisches Sportstudium öffnet viele Türen: Lehramt Sport, Sportmanagement, Leistungssport, Rehabilitation oder Prävention. In Deutschland gibt es über 50 Hochschulen mit Sportfakultäten. Das Bachelorstudium dauert 3–4 Jahre und vermittelt Wissen in Trainingswissenschaft, Sportbiologie, Sportpsychologie und mehr. Kein NC ist selten – viele Unis verlangen einen Sporttest.</p>
+          <div class="chip-row">
+            <span class="chip">Dauer: 6–8 Semester</span>
+            <span class="chip">Mit Sporteingangsprüfung</span>
+            <span class="chip">Viele Schwerpunkte</span>
+            <span class="chip">Bafög möglich</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-step">
+        <div class="step-icon" style="background:#d1fae5; color:#065f46;">🔬</div>
+        <div class="step-content">
+          <span class="step-label">Option 6</span>
+          <h3>Master & Promotion (Vertiefung)</h3>
+          <p>Nach dem Bachelor kannst du dich mit einem Master weiter spezialisieren – z.B. auf Sportmedizin, Sportpsychologie, Sportrecht oder Sportmanagement. Wer forschen möchte, promoviert zum Dr. rer. nat. oder Dr. phil. Ein Master dauert 2 Jahre und eröffnet Führungspositionen oder den Weg in die Wissenschaft.</p>
+          <div class="chip-row">
+            <span class="chip">Dauer: 2–4 Jahre</span>
+            <span class="chip">Forschung oder Praxis</span>
+            <span class="chip">Sehr hohe Spezialisierung</span>
+            <span class="chip">Stipendien möglich</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <br>
+    <div class="section-title" style="margin-top:3rem;">Vergleich auf einen Blick</div>
+    <div class="divider"></div>
+    <div style="overflow-x:auto; margin-top:1rem;">
+      <table class="career-table">
+        <thead>
+          <tr>
+            <th>Weg</th>
+            <th>Dauer</th>
+            <th>Abschluss</th>
+            <th>Einstiegsgehalt</th>
+            <th>Voraussetzung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>FSJ Sport</td><td>12 Monate</td><td>Teilnahme-Zeugnis</td><td>Taschengeld ~400 €</td><td>Schulabschluss (jede Art)</td></tr>
+          <tr><td>Ausbildung Sport-/Fitnesskfm.</td><td>3 Jahre</td><td>IHK-Abschluss</td><td>~2.000–2.600 €</td><td>Hauptschulabschluss</td></tr>
+          <tr><td>Trainer C-Lizenz</td><td>~3 Wochen</td><td>Verbandslizenz</td><td>Nebenverdienst</td><td>Keine formale Voraussetzung</td></tr>
+          <tr><td>Duales Studium Sport</td><td>3 Jahre</td><td>B.A./B.Sc.</td><td>~2.500–3.200 €</td><td>Abitur / Fachhochschulreife</td></tr>
+          <tr><td>Bachelor Sportwissenschaft</td><td>3–4 Jahre</td><td>B.A./B.Sc.</td><td>~2.200–3.000 €</td><td>Abitur + Sporttest</td></tr>
+          <tr><td>Master Sport</td><td>2 Jahre</td><td>M.A./M.Sc.</td><td>~3.000–4.500 €</td><td>Bachelor</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-strip">
+      <div class="hs-icon">💡</div>
+      <div>
+        <h3>Tipp: FSJ vor dem Studium</h3>
+        <p>Viele erfolgreiche Sportkarrieren starten mit einem FSJ. Es liefert dir Praxiserfahrung, hilft bei der Berufswahl und wird oft als Wartesemester genutzt. Manche Unis rechnen es sogar als Studienleistung an.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
+  </footer>
+</div>
+
+
+<!-- =============================================
+     PAGE: SPORTARTEN (Übersicht)
+     ============================================= -->
+<div class="page" id="page-sportarten">
+
+  <div class="hero" style="min-height:300px; background: linear-gradient(135deg,#7b1fa2,#e8450a);">
+    <div class="hero-content">
+      <div class="hero-badge">🏅 Sportarten</div>
+      <h1>Wähle <em>deine</em> Sportart</h1>
+      <p>Klicke auf eine Sportart und erfahre alles über Karrieremöglichkeiten, Ausbildungswege und Verdienstmöglichkeiten.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Alle Sportarten im Überblick</div>
+    <div class="divider"></div>
+    <p class="section-sub">Von Mannschaftssport bis Einzeldisziplin – jede Sportart bietet eigene Karrierechancen. Klicke auf eine Karte für detaillierte Informationen.</p>
+
+    <div class="card-grid card-grid-3">
+
+      <div class="card" onclick="showSport('fussball')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600&q=80)" alt="Fußball">
+        <div class="card-body">
+          <span class="card-tag tag-green">Teamsport</span>
+          <h3>⚽ Fußball</h3>
+          <p>Deutschlands Sportart Nr. 1 mit riesiger Infrastruktur. Vom Kreisligaverein bis zur Bundesliga.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('basketball')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80)" alt="Basketball">
+        <div class="card-body">
+          <span class="card-tag tag-orange">Teamsport</span>
+          <h3>🏀 Basketball</h3>
+          <p>Wachsende Liga in Deutschland mit internationalen Karrieremöglichkeiten durch die BBL.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('leichtathletik')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1544919982-b61976f0ba43?w=600&q=80)" alt="Leichtathletik">
+        <div class="card-body">
+          <span class="card-tag tag-red">Einzelsport</span>
+          <h3>🏃 Leichtathletik</h3>
+          <p>Laufen, Springen, Werfen – olympische Kerndisziplin mit breitem Feld für Nachwuchstalente.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('schwimmen')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&q=80)" alt="Schwimmen">
+        <div class="card-body">
+          <span class="card-tag tag-blue">Wassersport</span>
+          <h3>🏊 Schwimmen</h3>
+          <p>Vom Rettungsschwimmer bis zum Olympioniken – Schwimmen bietet breite Karriereperspektiven.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('tennis')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=600&q=80)" alt="Tennis">
+        <div class="card-body">
+          <span class="card-tag tag-yellow">Einzelsport</span>
+          <h3>🎾 Tennis</h3>
+          <p>Sehr internationaler Sport mit ATP/WTA-Tour. Auch als Tennistrainer sehr gefragt.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('handball')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=600&q=80)" alt="Handball">
+        <div class="card-body">
+          <span class="card-tag tag-red">Teamsport</span>
+          <h3>🤾 Handball</h3>
+          <p>In Deutschland sehr populär – die Bundesliga gehört zur weltbesten. Starke Nachwuchsförderung.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('esport')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80)" alt="E-Sport">
+        <div class="card-body">
+          <span class="card-tag tag-purple">Digitalsport</span>
+          <h3>🎮 E-Sport</h3>
+          <p>Der Wachstumsmarkt schlechthin. Teams, Turniere, Content und Management – eine ganz neue Welt.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('fitness')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80)" alt="Fitness">
+        <div class="card-body">
+          <span class="card-tag tag-green">Fitness & Gesundheit</span>
+          <h3>💪 Fitness & Bodybuilding</h3>
+          <p>Trainer, Influencer, Ernährungsberater – der Fitnessmarkt boomt und braucht Fachkräfte.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+      <div class="card" onclick="showSport('kampfsport')">
+        <img class="card-img" src="[images.unsplash.com](https://images.unsplash.com/photo-1555597673-b21d5c3a8fd3?w=600&q=80)" alt="Kampfsport">
+        <div class="card-body">
+          <span class="card-tag tag-orange">Kampfsport</span>
+          <h3>🥋 Kampfsport & Martial Arts</h3>
+          <p>Boxen, Karate, MMA, Judo – olympische Disziplinen und wachsende Profiligen.</p>
+          <a class="card-link">Details ansehen →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
+  </footer>
+</div>
+
+
+<!-- =============================================
+     PAGE: SPORT DETAIL
+     ============================================= -->
+<div class="page" id="page-sport-detail">
+  <div id="sport-detail-content"></div>
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
+  </footer>
+</div>
+
+
+<!-- =============================================
+     PAGE: PROFI WERDEN
+     ============================================= -->
+<div class="page" id="page-profi">
+
+  <div class="hero" style="min-height:320px; background: linear-gradient(135deg,#78350f,#dc2626);">
+    <div class="hero-content">
+      <div class="hero-badge">🏆 Profikarriere</div>
+      <h1>Profi werden – <em>Was steckt</em> dahinter?</h1>
+      <p>Die Profikarriere ist der Traum vieler – aber was braucht es wirklich, und wie realistisch ist es?</p>
+    </div>
+  </div>
+
+  <div class="section">
+
+    <div class="pro-banner">
+      <div>
+        <h2>Der Weg an die Spitze</h2>
+        <p>Weniger als 0,1 % aller aktiven Sportler in Deutschland schaffen es in den Profibereich. Das klingt hart – bedeutet aber nicht, dass Sport keine Karriere ist. Es bedeutet: Habe Plan A (Profi) UND Plan B (Sportberufe).</p>
+      </div>
+      <div class="trophy">🏆</div>
+    </div>
+
+    <div style="margin-top:3rem;">
+      <div class="section-title">Was braucht ein Profi?</div>
+      <div class="divider"></div>
+
+      <div class="card-grid card-grid-3" style="margin-top:1.5rem;">
+        <div class="card" style="cursor:default;">
+          <div class="card-body">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">⏰</div>
+            <h3>10.000 Stunden Regel</h3>
+            <p>Anders Ericsson zufolge braucht es rund 10.000 Stunden gezieltes Training, um Weltklasseniveau zu erreichen. Bei 2 h/Tag sind das ~14 Jahre. Frühstart ist entscheidend.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default;">
+          <div class="card-body">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">🧠</div>
+            <h3>Mentale Stärke</h3>
+            <p>Druck, Verletzungen, Rückschläge – Sportpsychologie ist heute fester Bestandteil der Profi-Ausbildung. Resilienz, Fokus und Visualisierung sind trainierbare Skills.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default;">
+          <div class="card-body">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">💸</div>
+            <h3>Finanzielle Realität</h3>
+            <p>Nur wenige Profi-Sportler sind Millionäre. Ein Bundesliga-Spieler in der 3. Liga verdient ca. 2.000–8.000 €/Monat. In Randsportarten oft deutlich weniger – Nebenjob nötig.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default;">
+          <div class="card-body">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">🏥</div>
+            <h3>Verletzungsmanagement</h3>
+            <p>Profis brauchen ein starkes Team: Physiotherapeut, Sportarzt, Ernährungsberater. Verletzungen können Karrieren beenden – Prävention ist mindestens so wichtig wie Training.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default;">
+          <div class="card-body">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">📋</div>
+            <h3>Netzwerk & Management</h3>
+            <p>Agenten, Sponsoren, Scouts – das Sportbusiness ist ein People-Business. Ohne das richtige Netzwerk ist Talent allein oft nicht genug. Elternhaus und Trainerbeziehung zählen enorm.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default;">
+          <div class="card-body">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎓</div>
+            <h3>Duales Modell: Sport + Bildung</h3>
+            <p>Sportgymnasien, Eliteschulen des Sports und der OSP (Olympiastützpunkt) ermöglichen es, Leistungssport UND Schule/Ausbildung parallel zu machen. Eine starke Absicherung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFI PER SPORTART -->
+    <div style="margin-top:3rem;">
+      <div class="section-title">Profi-Chancen je Sportart</div>
+      <div class="divider"></div>
+      <div style="overflow-x:auto; margin-top:1rem;">
+        <table class="career-table">
+          <thead>
+            <tr>
+              <th>Sportart</th>
+              <th>Profi-Liga in DE</th>
+              <th>Ø Gehalt Profi (DE)</th>
+              <th>Karrieredauer (Ø)</th>
+              <th>Schwierigkeit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>⚽ Fußball (1. BL)</td><td>Bundesliga</td><td>~2,5 Mio. €/Jahr</td><td>13–15 Jahre aktiv</td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>⚽ Fußball (3. Liga)</td><td>3. Liga</td><td>~3.000–8.000 €/Mo.</td><td>10–12 Jahre</td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td>🏀 Basketball (BBL)</td><td>Basketball Bundesliga</td><td>~5.000–30.000 €/Mo.</td><td>10–15 Jahre</td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>🤾 Handball (1. BL)</td><td>HBL</td><td>~15.000–80.000 €/Mo.</td><td>12–14 Jahre</td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>🎾 Tennis (ATP/WTA)</td><td>Keine eigene DE-Liga</td><td>Sehr variabel</td><td>10–20 Jahre</td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td>🏃 Leichtathletik</td><td>Deutsche Leichtathletik-Liga</td><td>Stipendien/Fördergelder</td><td>10–15 Jahre</td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td>🎮 E-Sport</td><td>Diverse Ligen</td><td>~2.000–15.000 €/Mo.</td><td>3–8 Jahre (kurz!)</td><td>⭐⭐⭐⭐</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="highlight-strip" style="margin-top:3rem;">
+      <div class="hs-icon">🔑</div>
+      <div>
+        <h3>Wichtigster Tipp: Der "Dual Career" Ansatz</h3>
+        <p>Europäische Spitzensportler und Verbände empfehlen heute konsequent den Dual-Career-Ansatz: Sport UND Bildung parallel. Dadurch bist du abgesichert, wenn der Körper nicht mehr mitmacht – und du trainierst nebenbei mentale Stärke und Disziplin.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
+  </footer>
+</div>
+
+
+<!-- =============================================
+     PAGE: BERUFE IM SPORT
+     ============================================= -->
+<div class="page" id="page-berufe">
+
+  <div class="hero" style="min-height:300px; background: linear-gradient(135deg,#064e3b,#1a3a5c);">
+    <div class="hero-content">
+      <div class="hero-badge">💼 Berufsbilder</div>
+      <h1>Berufe <em>rund um</em> den Sport</h1>
+      <p>Sport ist weit mehr als das Spielfeld. Entdecke über 40 Berufsbilder, die alle mit Sport zu tun haben.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Berufsfelder im Überblick</div>
+    <div class="divider"></div>
+
+    <!-- TRAINING & COACHING -->
+    <h3 style="color:var(--primary); margin:2rem 0 1rem; font-size:1.3rem;">🏋️ Training & Coaching</h3>
+    <div class="card-grid card-grid-4">
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-green">Vollzeit</span>
+          <h3>Sporttrainer/in</h3>
+          <p>Trainiert Einzelathleten oder Teams. Vom Vereinstrainer bis zum Bundestrainer.</p>
+          <div class="chip-row"><span class="chip">Lizenz erforderlich</span><span class="chip">~2.500–6.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-green">Vollzeit</span>
+          <h3>Fitnesstrainer/in</h3>
+          <p>Persönliches Training, Kurse, Studios. Sehr flexibles Arbeitsfeld mit vielen Nischen.</p>
+          <div class="chip-row"><span class="chip">A-Lizenz DTB/DVTA</span><span class="chip">~2.000–4.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-green">Vollzeit</span>
+          <h3>Personal Trainer</h3>
+          <p>Individuelles 1:1-Coaching. Sehr gut verdienend bei eigenem Kundenstamm (selbstständig).</p>
+          <div class="chip-row"><span class="chip">Selbstständig möglich</span><span class="chip">40–150 €/Std.</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-blue">Schule</span>
+          <h3>Sportlehrer/in</h3>
+          <p>Lehramt Sport an Schulen – sicherer Beruf mit geregelten Arbeitszeiten und Beamtenstatus.</p>
+          <div class="chip-row"><span class="chip">Master + Referendariat</span><span class="chip">~3.500–5.500 €</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIZIN & GESUNDHEIT -->
+    <h3 style="color:var(--primary); margin:2.5rem 0 1rem; font-size:1.3rem;">🏥 Medizin & Gesundheit</h3>
+    <div class="card-grid card-grid-4">
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-red">Medizin</span>
+          <h3>Sportmediziner/in</h3>
+          <p>Arzt mit Zusatzqualifikation Sportmedizin. Behandelt Sportverletzungen, führt Tauglichkeitsuntersuchungen durch.</p>
+          <div class="chip-row"><span class="chip">Medizinstudium</span><span class="chip">~5.000–10.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-red">Therapie</span>
+          <h3>Physiotherapeut/in</h3>
+          <p>Rehabilitation, Verletzungsprävention, Aufbautraining nach Verletzungen. Sehr gefragt im Profibereich.</p>
+          <div class="chip-row"><span class="chip">3 J. Ausbildung</span><span class="chip">~2.500–4.500 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-orange">Ernährung</span>
+          <h3>Sporternährungsberater/in</h3>
+          <p>Optimiert die Ernährung von Athleten für maximale Leistung und schnelle Regeneration.</p>
+          <div class="chip-row"><span class="chip">Studium/Ausbildung</span><span class="chip">~2.500–4.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-purple">Psychologie</span>
+          <h3>Sportpsycholog/in</h3>
+          <p>Mentales Coaching, Fokus, Angst vor Misserfolg – im Profibereich heute unverzichtbar.</p>
+          <div class="chip-row"><span class="chip">Psychologiestudium</span><span class="chip">~3.000–6.000 €</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGEMENT & BUSINESS -->
+    <h3 style="color:var(--primary); margin:2.5rem 0 1rem; font-size:1.3rem;">📊 Management & Business</h3>
+    <div class="card-grid card-grid-4">
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-blue">Management</span>
+          <h3>Sportmanager/in</h3>
+          <p>Führt Vereine, Verbände oder Sportorganisationen. Verantwortlich für Budget, Strategie und Personal.</p>
+          <div class="chip-row"><span class="chip">BWL/Sport-Studium</span><span class="chip">~3.000–8.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-yellow">Marketing</span>
+          <h3>Sportmarketing-Manager/in</h3>
+          <p>Sponsoring, Social Media, Markenbildung für Clubs und Athleten. Sehr kreatives Berufsfeld.</p>
+          <div class="chip-row"><span class="chip">Marketing/BWL</span><span class="chip">~2.800–5.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-orange">Agenten</span>
+          <h3>Sportag­ent/in</h3>
+          <p>Vertritt Athleten bei Vertragsverhandlungen, Sponsoring und Karriereplanung. Oft selbstständig.</p>
+          <div class="chip-row"><span class="chip">Jura/BWL</span><span class="chip">Provision-Basis</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-green">Events</span>
+          <h3>Sportveranstaltungs-Manager/in</h3>
+          <p>Plant und organisiert Sportturniere, Marathons, Großereignisse. Kreativ und logistisch anspruchsvoll.</p>
+          <div class="chip-row"><span class="chip">Eventmanagement</span><span class="chip">~2.500–4.500 €</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIEN & KOMMUNIKATION -->
+    <h3 style="color:var(--primary); margin:2.5rem 0 1rem; font-size:1.3rem;">📺 Medien & Kommunikation</h3>
+    <div class="card-grid card-grid-4">
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-red">Medien</span>
+          <h3>Sportjournalist/in</h3>
+          <p>Schreibt, moderiert oder kommentiert Sport. Zeitung, TV, Podcast, Online.</p>
+          <div class="chip-row"><span class="chip">Journalistik/Volontariat</span><span class="chip">~2.200–4.500 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-purple">Content</span>
+          <h3>Sport-Content-Creator</h3>
+          <p>YouTube, Instagram, TikTok – Sportler und Coaches als Influencer. Wachsender Markt mit viel Potenzial.</p>
+          <div class="chip-row"><span class="chip">Selbstständig</span><span class="chip">Sehr variabel</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-blue">Foto/Video</span>
+          <h3>Sportfotograf/in</h3>
+          <p>Hält sportliche Momente fest. Arbeitet für Medien, Agenturen oder Clubs. Oft auf Veranstaltungen.</p>
+          <div class="chip-row"><span class="chip">Freiberuflich möglich</span><span class="chip">~2.000–5.000 €</span></div>
+        </div>
+      </div>
+      <div class="card" style="cursor:default;">
+        <div class="card-body">
+          <span class="card-tag tag-yellow">PR</span>
+          <h3>Sportpresse-sprecher/in</h3>
+          <p>Kommuniziert im Auftrag von Vereinen und Verbänden. Krisenkommunikation, Pressekonferenzen.</p>
+          <div class="chip-row"><span class="chip">Kommunikation/PR</span><span class="chip">~3.000–5.500 €</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
+  </footer>
+</div>
+
+
+<!-- =============================================
+     PAGE: FAQ
+     ============================================= -->
+<div class="page" id="page-faq">
+
+  <div class="hero" style="min-height:280px; background: linear-gradient(135deg,#1e1b4b,#e8450a);">
+    <div class="hero-content">
+      <div class="hero-badge">❓ FAQ</div>
+      <h1>Häufige <em>Fragen</em> beantwortet</h1>
+      <p>Du hast Fragen zur Sportkarriere? Hier findest du klare, ehrliche Antworten.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Fragen & Antworten</div>
+    <div class="divider"></div>
+
+    <div class="accordion">
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Brauche ich Abitur für eine Karriere im Sport?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Nein, nicht zwingend. Für Ausbildungsberufe reicht oft der Haupt- oder Realschulabschluss. Ein FSJ ist sogar ohne formalen Abschluss möglich. Für ein Sportstudium brauchst du in der Regel Abitur oder Fachhochschulreife – aber auch der Zweite Bildungsweg ist möglich. Trainerlizenzen erfordern gar keinen bestimmten Schulabschluss.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Was verdient man mit einem Sportstudium?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Das hängt stark vom Berufsfeld ab. Sportlehrer (verbeamtet) verdienen 3.500–5.500 € brutto je nach Bundesland. Sportmanager starten bei ca. 2.500–3.500 €. Physiotherapeuten ca. 2.500–4.000 €. Sportpsychologen mit Kassenzulassung können 4.000–7.000 € verdienen. Selbstständige Personal Trainer haben ein sehr variables Einkommen – von 1.500 € bis weit über 10.000 € monatlich.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Ist ein FSJ im Sport sinnvoll, wenn ich noch nicht weiß, was ich machen will?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Absolut! Das FSJ ist genau dafür gemacht. Es gibt dir 12 Monate Zeit, Praxiserfahrung zu sammeln, verschiedene Tätigkeitsfelder kennenzulernen und dich zu orientieren – ohne dass du dich langfristig festlegst. Gleichzeitig ist es auf dem Lebenslauf ein echter Pluspunkt und zeigt Engagement. Viele Hochschulen werten es positiv bei der Zulassung.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Kann ich auch ohne Profikarriere gut im Sport verdienen?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Ja! Das ist vielleicht sogar die häufigere und verlässlichere Karriere. Sportlehrer, Physiotherapeuten, Sportmanager, Eventmanager, Trainer oder Sportjournalisten – all das sind Berufe, bei denen du täglich mit Sport zu tun hast, solide verdienst und eine lange Karriere hast. Du musst kein Profi sein, um von Sport zu leben.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Welche Hochschulen sind gut für Sportwissenschaften in Deutschland?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Sehr renommierte Standorte sind: <strong>Deutsche Sporthochschule Köln</strong> (DSHS Köln – einzige reine Sporthochschule Deutschlands), <strong>TU München</strong>, <strong>Universität Hamburg</strong>, <strong>Universität Leipzig</strong>, <strong>Universität Freiburg</strong>, <strong>Humboldt-Universität Berlin</strong>. Für duales Studium bieten sich außerdem die IU Internationale Hochschule und die DHFPG an.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Was ist der Unterschied zwischen einer C-, B- und A-Trainerlizenz?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Die Lizenzen spiegeln zunehmende Qualifikation und Einsatzbereiche wider:<br><br>
+          <strong>C-Lizenz:</strong> Grundlizenz für Kinder-/Jugendtraining im Breitensport (~60–80 Std.)<br>
+          <strong>B-Lizenz:</strong> Für leistungsorientiertes Training im Verein (~120 Std.)<br>
+          <strong>A-Lizenz:</strong> Profi- und Leistungssport, oft Pflicht für Profi-Teams (~400+ Std.)<br>
+          <strong>UEFA Pro / Verbands-Pro-Lizenz:</strong> Für den Cheftrainer von Profivereinen (höchste Stufe)
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Wie realistisch ist eine E-Sport-Karriere?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Realistisch – aber kurzlebig. Profi-E-Sportler sind meist zwischen 16 und 25 Jahren aktiv. Danach wechseln viele ins Coaching, Streaming oder Management. Die Karriere ist kurz und intensiv (10–14 Std./Tag Training ist keine Seltenheit). Wer im E-Sport arbeiten möchte, hat aber auch ohne Profi-Level gute Chancen: als Coach, Analyst, Caster (Kommentator), Eventmanager oder Content Creator. Der Markt wächst stark.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Gibt es Stipendien für Sportstudenten?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Ja! Möglichkeiten sind: <strong>Deutschlandstipendium</strong> (leistungsbasiert, 300 €/Monat), <strong>Begabtenförderwerke</strong> (z.B. Friedrich-Ebert-Stiftung, Konrad-Adenauer-Stiftung – bis zu 850 €/Monat), <strong>Stiftung Deutsche Sporthilfe</strong> (für Nachwuchs-Leistungssportler, 3.600 €/Jahr), sowie sportartspezifische Verbandsstipendien. BaföG ist natürlich auch möglich, sofern die Einkommensgrenzen stimmen.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          Kann ich im Sport selbstständig werden?
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="acc-body">
+          Sehr gut! Gerade in folgenden Bereichen ist Selbstständigkeit verbreitet und attraktiv: Personal Training, Online-Coaching, Ernährungsberatung, Sportpsychologie, Sportagentur, Content Creation (YouTube, Instagram), Sporteventorganisation oder als freier Trainer im Verein. Viele gründen ihr eigenes Studio oder ihre eigene Coaching-Marke. Der Markt für Gesundheits- und Sportdienstleistungen wächst kontinuierlich.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <strong>SportKarriere.de</strong> · Alle Informationen dienen der Orientierung · © 2025
+  </footer>
+</div>
+
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  /* ---------- PAGE NAVIGATION ---------- */
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+    const target = document.getElementById('page-' + id);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    const navEl = document.getElementById('nav-' + id);
+    if (navEl) navEl.classList.add('active');
+
+    // close mobile menu
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  /* ---------- HAMBURGER ---------- */
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  /* ---------- ACCORDION ---------- */
+  function toggleAcc(header) {
+    const body = header.nextElementSibling;
+    const isOpen = header.classList.contains('open');
+
+    document.querySelectorAll('.acc-header').forEach(h => {
+      h.classList.remove('open');
+      h.nextElementSibling.classList.remove('open');
+    });
+
+    if (!isOpen) {
+      header.classList.add('open');
+      body.classList.add('open');
+    }
+  }
+
+  /* ---------- SPORT DETAIL PAGES ---------- */
+  const sports = {
+    fussball: {
+      name: "⚽ Fußball",
+      sub: "Deutschlands beliebteste Sportart mit riesiger Infrastruktur.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1200&q=80)",
+      color: "#065f46",
+      infos: [
+        { label: "Mitglieder in DE", val: "7,1 Millionen (DFB)" },
+        { label: "Profi-Ligen", val: "Bundesliga, 2. BL, 3. Liga, Regionalliga" },
+        { label: "Einstiegsalter", val: "Ab 4 Jahren (Bambini)" },
+        { label: "Top-Verdienst (BL)", val: "Ø 3,8 Mio. €/Jahr" },
+      ],
+      karriere: `
+        <p>Fußball bietet die breiteste Karriereinfrastruktur aller Sportarten in Deutschland. Mit über 25.000 Vereinen und 7,1 Millionen Mitgliedern gibt es Einstiegsmöglichkeiten auf jeder Ebene.</p>
+        <br>
+        <strong>Ausbildungswege:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>DFB-Trainerlizenzen (C bis UEFA Pro License)</li>
+          <li>Studium Sportmanagement / Sportwissenschaft</li>
+          <li>Ausbildung Sport- und Fitnesskaufmann/-frau</li>
+          <li>Nachwuchsleistungszentren (NLZ) der Proficlubs</li>
+          <li>FSJ in Sportvereinen und Verbänden</li>
+        </ul>
+        <strong>Neben dem Spielfeld:</strong> Schiedsrichter, Vereinsmanager, Scoutinganalyst, Fitnesstrainer, Physiotherapeut, Sportarzt, Pressereferent.
+      `,
+      profi: "Der Weg in den Profibereich führt meist über NLZs (Nachwuchsleistungszentren). Clubs wie Bayern München, BVB oder Schalke rekrutieren Talente ab 8 Jahren. Der Durchbruch in die Profiliga gelingt nur ca. 1–2 % der NLZ-Spieler. Dennoch können Spieler bis in die 5. Liga ihren Sport relativ professionell betreiben."
+    },
+
+    basketball: {
+      name: "🏀 Basketball",
+      sub: "Wachsende Sportart mit internationaler Strahlkraft.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&q=80)",
+      color: "#c2410c",
+      infos: [
+        { label: "Mitglieder in DE", val: "~220.000 (DBB)" },
+        { label: "Profi-Liga", val: "Basketball Bundesliga (BBL)" },
+        { label: "Bekannte Klubs", val: "Alba Berlin, Bayern München, Bamberg" },
+        { label: "Höchstes Gehalt BBL", val: "~100.000–200.000 €/Saison" },
+      ],
+      karriere: `
+        <p>Basketball wächst in Deutschland stark, besonders durch internationale Stars wie Dirk Nowitzki. Die BBL ist professionell aufgestellt, bietet aber deutlich weniger Stellen als der Fußball.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>DBB-Trainerlizenz (A bis Pro-Lizenz)</li>
+          <li>Stipendium in den USA (NCAA) – sehr verbreitet!</li>
+          <li>Sportmanagement-Studium + Vereinsarbeit</li>
+          <li>Schiedsrichterausbildung DBB</li>
+          <li>Scouting & Analytik (wachsendes Feld)</li>
+        </ul>
+        <strong>Besonderheit:</strong> Basketball ist eine der wenigen Sportarten, bei denen realistische Chancen auf ein US-College-Stipendium bestehen, was akademische und sportliche Karriere verbindet.
+      `,
+      profi: "Der Weg zur BBL führt meist über die Jugendligen der Bundesclubs oder den Umweg USA (NCAA-College). Wer es nicht in die BBL schafft, kann in der Pro A oder Pro B spielen – dort verdienen Spieler 1.000–5.000 €/Monat."
+    },
+
+    leichtathletik: {
+      name: "🏃 Leichtathletik",
+      sub: "Die olympische Kernsportart – Laufen, Springen, Werfen.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1544919982-b61976f0ba43?w=1200&q=80)",
+      color: "#7c3aed",
+      infos: [
+        { label: "Disziplinen", val: "Über 40 olympische Disziplinen" },
+        { label: "Verband", val: "DLV (Deutscher Leichtathletik-Verband)" },
+        { label: "Förderung", val: "Olympiastützpunkte, Heeressportgruppen" },
+        { label: "Ø Fördergelder Kader", val: "3.600–15.000 €/Jahr (Sporthilfe)" },
+      ],
+      karriere: `
+        <p>Leichtathletik bietet wenig direkte Profi-Gehälter, aber viele Förderstrukturen für Kaderathleten. Sponsoring, Prämien und Bundeswehrsportgruppen sichern Spitzensportler ab.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>Bundeswehr-Sportfördergruppe (Sold + Training)</li>
+          <li>Bundespolizei-Sportfördergruppe</li>
+          <li>DLV-Kader (B/A/Olympia-Kader)</li>
+          <li>Sportstipendien an deutschen Unis (selten) oder USA</li>
+          <li>Trainerkarriere nach aktiver Zeit</li>
+          <li>Sportartikel-Sponsoring bei Erfolg</li>
+        </ul>
+      `,
+      profi: "In der Leichtathletik ist 'Profi' weniger klar definiert. Top-Athleten verdienen durch Startgelder, Prämien und Sponsoring. Ein Athlet im DLV-A-Kader erhält oft Förderung durch die Sporthilfe, Bundeswehr oder Bundespolizei und kann seinen Sport hauptberuflich betreiben."
+    },
+
+    schwimmen: {
+      name: "🏊 Schwimmen",
+      sub: "Wassersport mit breiten Karriereperspektiven.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1200&q=80)",
+      color: "#1d4ed8",
+      infos: [
+        { label: "Verband", val: "DOSB / Deutsche Schwimm-Verband (DSV)" },
+        { label: "Disziplinen", val: "Freistil, Rücken, Brust, Schmetterling, Lagen" },
+        { label: "Bekannte Namen", val: "Michael Groß, Franziska van Almsick" },
+        { label: "Berufsmöglichkeiten", val: "Schwimmlehrer, Rettungsschwimmer, Trainer, Bäderleitung" },
+      ],
+      karriere: `
+        <p>Schwimmen bietet neben der Leistungssport-Karriere sehr praktische Berufsbilder wie Fachangestellte/r für Bäderbetriebe oder Schwimmlehrer – stabil und gefragt.</p>
+        <br>
+        <strong>Ausbildungswege:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>Ausbildung Fachangestellte/r für Bäderbetriebe (3 J.)</li>
+          <li>DSV-Trainerlizenz (C bis A)</li>
+          <li>DLRG-Ausbildung zum Rettungsschwimmer</li>
+          <li>Sportstudium mit Schwerpunkt Aquatik</li>
+          <li>Bundeswehr-Sportfördergruppe für Kaderathleten</li>
+        </ul>
+      `,
+      profi: "Profischwimmer werden über nationale Kader (DSV) gefördert. International erfolgreiche Schwimmer verdienen durch Sponsoring (Adidas, Speedo, Arena). In Deutschland fehlt eine professionelle Schwimmliga – deshalb ist die Kombination aus Leistungssport und Studium/Ausbildung sehr verbreitet."
+    },
+
+    tennis: {
+      name: "🎾 Tennis",
+      sub: "Internationaler Einzelsport mit ATP/WTA-Tour.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=1200&q=80)",
+      color: "#065f46",
+      infos: [
+        { label: "Verband", val: "DTB (Deutscher Tennis Bund)" },
+        { label: "Profi-Tour", val: "ATP (Herren), WTA (Damen), ITF" },
+        { label: "Preisgeld Nr. 1 der Welt", val: "~15 Mio. €/Jahr" },
+        { label: "Preisgeld Platz 100 ATP", val: "~200.000–400.000 €/Jahr" },
+      ],
+      karriere: `
+        <p>Tennis ist einer der internationalsten Sports. Wer es in die Top 100 schafft, kann gut leben – darunter wird es durch Reisekosten schwierig. Tennistrainer dagegen sind extrem gefragt.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>DTB-Trainerausbildung (C bis A, ~2.000 €/Monat)</li>
+          <li>Head Coach in Tennisclubs oder privat</li>
+          <li>Turnierdirektor, Schiedsrichter (ITF-Lizenz)</li>
+          <li>Sportstipendium USA (NCAA Tennis sehr verbreitet)</li>
+          <li>String-Techniker, Equipment-Management</li>
+        </ul>
+      `,
+      profi: "Der Weg zur ATP/WTA führt über Jugendturniere (ITF Juniors). Wer sich nicht als Profi durchsetzt, hat als Tennislehrer sehr gute Chancen – qualifizierte Tennistrainer sind europaweit sehr begehrt und können 3.000–8.000 €/Monat verdienen."
+    },
+
+    handball: {
+      name: "🤾 Handball",
+      sub: "Einer der populärsten Teamsportarten Deutschlands.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=1200&q=80)",
+      color: "#b91c1c",
+      infos: [
+        { label: "Mitglieder", val: "~770.000 (DHB)" },
+        { label: "Top-Liga", val: "HBL (Handball-Bundesliga)" },
+        { label: "Bekannte Klubs", val: "THW Kiel, SG Flensburg-Handewitt, Rhein-Neckar Löwen" },
+        { label: "Ø Gehalt HBL", val: "~15.000–80.000 €/Monat" },
+      ],
+      karriere: `
+        <p>Die HBL gehört zur weltbesten Handballliga. Deutschlands Nationalteam ist Weltklasse – was die Nachwuchsförderung auf einem sehr hohen Niveau hält.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>DHB-Trainerlizenzen (B, A, Elitetrainer-Lizenz)</li>
+          <li>Bundesliga-Nachwuchszentren der Clubs</li>
+          <li>Sportstudium mit Handball-Schwerpunkt</li>
+          <li>Bundeswehr-Sportfördergruppe</li>
+          <li>Schiedsrichter (IHF-Lizenz für internationale Karriere)</li>
+        </ul>
+      `,
+      profi: "Der Profiweg führt über die Jugendnationalmannschaft und Nachwuchszentren der HBL-Clubs. Auch die 2. und 3. Bundesliga bieten halbprofessionelle Bedingungen, bei denen Spieler ~1.500–5.000 €/Monat verdienen und oft parallel eine Ausbildung oder ein Studium absolvieren."
+    },
+
+    esport: {
+      name: "🎮 E-Sport",
+      sub: "Der Wachstumsmarkt des 21. Jahrhunderts.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&q=80)",
+      color: "#6d28d9",
+      infos: [
+        { label: "Globaler Markt", val: "~1,8 Mrd. USD (2024)" },
+        { label: "Profi-Teams in DE", val: "Schalke 04 eSports, BIG, G2 Esports" },
+        { label: "Aktive Profi-Karriere", val: "Meist 16–25 Jahre alt" },
+        { label: "Top-Verdienste", val: "~3.000–50.000 €/Monat" },
+      ],
+      karriere: `
+        <p>E-Sport ist weit mehr als Profi-Gaming. Die Industrie braucht Coaches, Analysten, Caster, Content Creator, Manager, Entwickler und Vermarkter.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>Profi-Spieler (League of Legends, CS2, Valorant, FIFA)</li>
+          <li>Coach / Taktikanalyst für E-Sport-Teams</li>
+          <li>Caster / Kommentator bei Turnieren</li>
+          <li>Content Creator (Twitch, YouTube, TikTok)</li>
+          <li>E-Sport-Manager, Teamleitung</li>
+          <li>Studium Game Design, Medien, Sportmanagement</li>
+          <li>Turnier-Organisator, Event-Manager</li>
+        </ul>
+      `,
+      profi: "E-Sport-Profis haben eine sehr kurze aktive Karriere (oft 4–7 Jahre). Danach bleiben viele als Coaches, Caster oder Content Creator aktiv. Der Markt wächst, aber Burnout ist ein großes Thema – 10–14 Stunden Training pro Tag sind im Profibereich üblich. Dual Career (Studium + E-Sport) ist deshalb besonders empfehlenswert."
+    },
+
+    fitness: {
+      name: "💪 Fitness & Bodybuilding",
+      sub: "Der boomende Gesundheitsmarkt bietet viele Karrierechancen.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80)",
+      color: "#b45309",
+      infos: [
+        { label: "Studios in DE", val: "~10.000 Fitnessstudios" },
+        { label: "Mitglieder", val: "~11,7 Millionen (2024)" },
+        { label: "Berufe", val: "Trainer, Ernährungsberater, Influencer, Studio-Manager" },
+        { label: "Personal Trainer Verdienst", val: "40–150 €/Stunde (selbstständig)" },
+      ],
+      karriere: `
+        <p>Der Fitnessmarkt ist einer der am stärksten wachsenden Bereiche im Sport. Qualifizierte Trainer, Coaches und Berater werden überall gesucht.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>Ausbildung Sport- und Fitnesskaufmann/-frau (IHK)</li>
+          <li>Fitnesstrainer B-Lizenz (DOSB/DTB)</li>
+          <li>Personal Trainer – Zertifizierung (z.B. NASM, ACE, ISSA)</li>
+          <li>Sporternährungsberater (DGE-zertifiziert)</li>
+          <li>Studium Fitness-Ökonomie (DHFPG)</li>
+          <li>Content Creation & Online-Coaching (sehr lukrativ!)</li>
+          <li>Studio-Management / Franchise-Betreiber</li>
+        </ul>
+      `,
+      profi: "Im Fitness-Bereich gibt es Wettkampfsport (Bodybuilding, Powerlifting, CrossFit) mit eigenen Ligen. Die Gehälter sind variabel – Top-Influencer und Online-Coaches verdienen jedoch weit mehr als Profisportler in vielen anderen Disziplinen. Eine eigene Marke aufzubauen ist hier der Schlüssel."
+    },
+
+    kampfsport: {
+      name: "🥋 Kampfsport & Martial Arts",
+      sub: "Boxen, Judo, Karate, MMA – olympisch und wachsend.",
+      img: "[images.unsplash.com](https://images.unsplash.com/photo-1555597673-b21d5c3a8fd3?w=1200&q=80)",
+      color: "#dc2626",
+      infos: [
+        { label: "Olympische Disziplinen", val: "Boxen, Judo, Karate, Taekwondo, Ringen" },
+        { label: "Wachstumsmarkt", val: "MMA (UFC), Kickboxen, BJJ" },
+        { label: "Verband", val: "DBV, DJB, DKV, NADA-Kontrolle" },
+        { label: "UFC Top-Verdienst", val: "Millionen $ pro Kampf" },
+      ],
+      karriere: `
+        <p>Kampfsport vereint olympische Tradition mit dem Wachstum von MMA und dem globalen Martial-Arts-Markt. Kampfsportgymnasien und Selbstverteidigungskurse sind gefragt wie nie.</p>
+        <br>
+        <strong>Karrieremöglichkeiten:</strong>
+        <ul style="margin:0.7rem 0 0.7rem 1.2rem; line-height:2;">
+          <li>Profi-Boxer / MMA-Fighter (Matchmaking, Promoter)</li>
+          <li>Kampfsporttrainer / Gym-Owner</li>
+          <li>Olympia-Kader (Judo, Boxen, Taekwondo)</li>
+          <li>Schiedsrichter / Kampfrichter</li>
+          <li>Sportwissenschaft mit Schwerpunkt Martial Arts</li>
+          <li>Selbstverteidigungstrainer für Unternehmen / Polizei</li>
+          <li>Sicherheitsbranche (mit Kampfsport-Zertifizierung)</li>
+        </ul>
+      `,
+      profi: "Im Boxen und MMA gibt es klare Profistrukturen (WBC, IBF, UFC). In olympischen Kampfsportarten (Judo, Karate) ist die Förderung über Olympiastützpunkte und Bundeswehr der häufigste Weg. Eigene Kampfsportschulen sind ein attraktives Geschäftsmodell für ehemalige Sportler."
+    }
+  };
+
+  function showSport(id) {
+    const s = sports[id];
+    if (!s) return;
+
+    const html = `
+      <div class="sport-hero">
+        <img src="${s.img}" alt="${s.name}">
+        <div class="sport-hero-overlay"></div>
+        <div class="sport-hero-content">
+          <button class="back-btn" onclick="showPage('sportarten')">← Zurück zu Sportarten</button>
+          <h1>${s.name}</h1>
+          <p>${s.sub}</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="info-grid">
+          ${s.infos.map(i => `
+            <div class="info-box">
+              <h4>${i.label}</h4>
+              <p>${i.val}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="margin-top:2.5rem;">
+          <div class="section-title">Karriere im ${s.name}</div>
+          <div class="divider" style="background:${s.color}"></div>
+          <div style="margin-top:1.2rem; background:white; border-radius:var(--radius); padding:1.5rem 1.8rem; box-shadow:var(--card-shadow); font-size:0.95rem; line-height:1.8; color:var(--dark);">
+            ${s.karriere}
+          </div>
+        </div>
+
+        <div style="margin-top:2.5rem; background:linear-gradient(135deg,${s.color},#111827); color:white; border-radius:var(--radius); padding:2rem 2rem;">
+          <h3 style="font-size:1.3rem; font-weight:800; margin-bottom:0.75rem;">🏆 Weg zum Profi</h3>
+          <p style="opacity:0.88; line-height:1.75; font-size:0.95rem;">${s.profi}</p>
+        </div>
+
+        <div style="margin-top:2rem; text-align:center;">
+          <button class="btn btn-primary" onclick="showPage('wege')">Alle Karrierewege ansehen</button>
+          <button class="btn btn-outline" style="color:var(--primary); border-color:var(--primary); margin-left:0.75rem;" onclick="showPage('sportarten')">Andere Sportarten</button>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('sport-detail-content').innerHTML = html;
+    showPage('sport-detail');
+  }
+</script>
 </body>
 </html>
