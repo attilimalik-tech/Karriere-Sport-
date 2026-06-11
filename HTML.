@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sportkarriere Berlin - Deine Wege nach der Schule</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="navbar">
+      <div class="logo">Sportkarriere Berlin</div>
+      <ul class="nav-links">
+        <li><a href="#wege">Wege</a></li>
+        <li><a href="#berufe">Berufe</a></li>
+        <li><a href="#profi">Profi-Sport</a></li>
+        <li><a href="#eigenschaften">Eigenschaften</a></li>
+        <li><a href="#berlin">Berlin</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Deine Zukunft im Sport</h1>
+      <p>
+        Entdecke deine Möglichkeiten nach der Schule: FSJ, Ausbildung, Studium,
+        Berufe im Sport und Wege in den Profi-Bereich - speziell für junge Menschen in Berlin.
+      </p>
+      <a href="#wege" class="btn">Jetzt entdecken</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro section">
+      <div class="container">
+        <h2>Sport ist mehr als nur ein Hobby</h2>
+        <p>
+          Wenn du Sport liebst, kannst du daraus viel machen: Du kannst mit Kindern
+          und Jugendlichen arbeiten, Trainer oder Trainerin werden, Sport studieren,
+          ein Freiwilliges Soziales Jahr im Sport machen oder sogar den Weg in den
+          Leistungs- und Profisport gehen. In Berlin gibt es viele Vereine, Schulen,
+          Sportzentren und Ausbildungswege, die dir Türen öffnen können.
+        </p>
+      </div>
+    </section>
+
+    <section id="wege" class="section light">
+      <div class="container">
+        <h2>Deine Wege nach der Schule</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>FSJ im Sport</h3>
+            <p>
+              Ein FSJ im Sport ist ideal, wenn du nach der Schule praktische Erfahrungen
+              sammeln willst. Du unterstützt oft Sportvereine, Schulen oder Jugendprojekte,
+              organisierst Angebote und hilfst beim Training.
+            </p>
+            <ul>
+              <li>Guter Einstieg in den Sportbereich</li>
+              <li>Praktische Erfahrungen mit Menschen und Teams</li>
+              <li>Hilft bei der Berufsorientierung</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Ausbildung</h3>
+            <p>
+              Im Sportbereich gibt es verschiedene Ausbildungsberufe. Beispiele sind
+              Sport- und Fitnesskaufmann/-frau, Physiotherapeut/in oder Kaufmann/-frau
+              im Gesundheitswesen.
+            </p>
+            <ul>
+              <li>Praxisnah lernen</li>
+              <li>Früh eigenes Geld verdienen</li>
+              <li>Direkter Einstieg ins Berufsleben</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Studium</h3>
+            <p>
+              Mit einem Studium kannst du tiefer in Themen wie Sportwissenschaft,
+              Lehramt Sport, Gesundheitsförderung, Training oder Management einsteigen.
+            </p>
+            <ul>
+              <li>Gute Chancen für spezialisierte Berufe</li>
+              <li>Verbindung von Theorie und Praxis</li>
+              <li>Interessant für Trainer, Lehrkräfte oder Management</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="berufe" class="section">
+      <div class="container">
+        <h2>Welche Berufe gibt es im Sport?</h2>
+        <div class="career-list">
+          <div class="career-item">
+            <h3>Trainer/in</h3>
+            <p>
+              Du planst Training, motivierst Menschen und hilfst ihnen, sportliche Ziele zu erreichen.
+            </p>
+          </div>
+          <div class="career-item">
+            <h3>Sportlehrer/in</h3>
+            <p>
+              Du vermittelst Bewegung, Teamgeist und Gesundheit in der Schule.
+            </p>
+          </div>
+          <div class="career-item">
+            <h3>Physiotherapeut/in</h3>
+            <p>
+              Du unterstützt Menschen nach Verletzungen und hilfst beim gesunden Bewegen.
+            </p>
+          </div>
+          <div class="career-item">
+            <h3>Sportmanager/in</h3>
+            <p>
+              Du organisierst Vereine, Events, Sponsoring und Abläufe im Sportbetrieb.
+            </p>
+          </div>
+          <div class="career-item">
+            <h3>Fitnessökonom/in</h3>
+            <p>
+              Du verbindest Training, Gesundheit und wirtschaftliches Wissen.
+            </p>
+          </div>
+          <div class="career-item">
+            <h3>Leistungssportler/in</h3>
+            <p>
+              Du trainierst auf hohem Niveau und baust dir mit Disziplin eine sportliche Laufbahn auf.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profi" class="section dark">
+      <div class="container">
+        <h2>Was braucht man für den Profi-Sport?</h2>
+        <div class="two-columns">
+          <div>
+            <h3>Was man machen muss</h3>
+            <ul>
+              <li>Regelmäßig und gezielt trainieren</li>
+              <li>Auf Ernährung und Regeneration achten</li>
+              <li>Diszipliniert und zuverlässig sein</li>
+              <li>Mit Druck und Rückschlägen umgehen lernen</li>
+              <li>Früh an Wettkämpfen und Sichtungen teilnehmen</li>
+              <li>Trainerinnen, Trainer und Fördermöglichkeiten suchen</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Was man als Profi können sollte</h3>
+            <ul>
+              <li>Leistungsbereitschaft und Motivation</li>
+              <li>Mentale Stärke</li>
+              <li>Teamfähigkeit</li>
+              <li>Geduld und Ausdauer</li>
+              <li>Selbstorganisation</li>
+              <li>Verantwortung für den eigenen Körper</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="eigenschaften" class="section light">
+      <div class="container">
+        <h2>Wie sollte man sein, wenn man im Sport arbeiten will?</h2>
+        <div class="traits-grid">
+          <div class="trait-box">
+            <h3>Motiviert</h3>
+            <p>Wer im Sport arbeiten möchte, sollte Lust haben, sich weiterzuentwickeln.</p>
+          </div>
+          <div class="trait-box">
+            <h3>Zuverlässig</h3>
+            <p>Pünktlichkeit und Verantwortung sind im Training und im Beruf sehr wichtig.</p>
+          </div>
+          <div class="trait-box">
+            <h3>Teamfähig</h3>
+            <p>Im Sport arbeitest du fast immer mit anderen Menschen zusammen.</p>
+          </div>
+          <div class="trait-box">
+            <h3>Belastbar</h3>
+            <p>Sportliche und berufliche Herausforderungen gehören dazu.</p>
+          </div>
+          <div class="trait-box">
+            <h3>Hilfsbereit</h3>
+            <p>Viele Berufe im Sport haben mit Förderung, Unterstützung und Gesundheit zu tun.</p>
+          </div>
+          <div class="trait-box">
+            <h3>Diszipliniert</h3>
+            <p>Fortschritt entsteht durch regelmäßige Arbeit und klare Ziele.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Was sollte man im Leben für diese Bereiche tun?</h2>
+        <div class="steps">
+          <div class="step">
+            <span>1</span>
+            <p>Eigene Interessen im Sport entdecken und verschiedene Bereiche ausprobieren.</p>
+          </div>
+          <div class="step">
+            <span>2</span>
+            <p>Praktische Erfahrungen sammeln, zum Beispiel im Verein, in Schulprojekten oder im FSJ.</p>
+          </div>
+          <div class="step">
+            <span>3</span>
+            <p>Sich weiterbilden, Lizenzen machen und offen für neue Chancen bleiben.</p>
+          </div>
+          <div class="step">
+            <span>4</span>
+            <p>Kontakte knüpfen, Trainerinnen und Trainer ansprechen und Netzwerke nutzen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="berlin" class="section accent">
+      <div class="container">
+        <h2>Sportkarriere in Berlin</h2>
+        <p>
+          Berlin bietet viele Möglichkeiten für junge Menschen im Sportbereich:
+          große und kleine Vereine, Leistungszentren, Fitnessstudios, Schulen,
+          Hochschulen und soziale Projekte. Gerade in einer sportlich vielfältigen
+          Stadt wie Berlin kannst du viele Wege ausprobieren und deinen eigenen
+          Platz finden.
+        </p>
+        <p>
+          Besonders sinnvoll ist es, früh Kontakte zu Vereinen, Trainerinnen und Trainern,
+          Schulen oder sozialen Einrichtungen aufzubauen. So bekommst du Einblicke in
+          verschiedene Bereiche und findest schneller heraus, welcher Weg zu dir passt.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Sportkarriere Berlin - Website für junge Menschen mit Zukunft im Sport</p>
+    </div>
+  </footer>
+</body>
+</html>
